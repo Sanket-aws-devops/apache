@@ -1,15 +1,10 @@
 version: 0.2
 
 phases:
-  install:
-    runtime-versions:
-      php: 7.4
-    commands:
-      - echo "Installing Apache"
-      - apt-get update
-      - apt-get install -y apache2
   pre_build:
     commands:
+      - apt-get update 
+      - apt-get install -y apache2
       - echo "Preparing to copy files"
   build:
     commands:

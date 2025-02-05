@@ -1,0 +1,25 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+     
+    commands:
+      - echo "Installing Apache"
+      - apt-get update
+      - apt-get install -y apache2
+  pre_build:
+    commands:
+      - echo "Preparing to copy files"
+  build:
+    commands:
+      - echo "Copying index.html to Apache directory"
+      - cp index.html /var/www/html/
+  post_build:
+    commands:
+      - echo "Starting Apache service"
+      - systemctl restart apache2
+
+artifacts:
+  files:
+    - index.html

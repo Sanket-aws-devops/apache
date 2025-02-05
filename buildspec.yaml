@@ -1,10 +1,13 @@
 version: 0.2
 
 phases:
+  install:
+    commands:
+      - echo "Installing Apache"
+      - apt-get update
+      - apt-get install -y apache2
   pre_build:
     commands:
-      - apt-get update 
-      - apt-get install -y apache2
       - echo "Preparing to copy files"
   build:
     commands:
@@ -12,9 +15,8 @@ phases:
       - cp index.html /var/www/html/
   post_build:
     commands:
-      - echo "Starting Apache service"
-      - service apache2 start
-
+      - echo "Creating deployment package"
+      - zip -r myapp.zip /var/www/html/index.html appspec.yml stop_apache.sh start_apache.sh install_apache.sh # Adjust paths as necessary
 artifacts:
   files:
-    - index.html
+    - myapp.zip

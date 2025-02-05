@@ -1,0 +1,19 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /var/www/html/
+
+hooks:
+  ApplicationStop:
+    - location: stop_apache.sh
+      timeout: 300
+      runas: root
+  BeforeInstall:
+    - location: install_apache.sh
+      timeout: 300
+      runas: root
+  AfterInstall:
+    - location: start_apache.sh
+      timeout: 300
+      runas: root
